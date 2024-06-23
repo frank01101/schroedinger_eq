@@ -1,44 +1,44 @@
-/* Generowanie wybranego potencjału (przypadek jednowymiarowy) */
-/* Autor: Franciszek Humieja
-   Wersja 1.0 (2017-VII-30) */
+/* Generating a selected potential for one-dimensional case */
+/* Author: Franciszek Humieja
+   Version 1.0 (2017-07-30) */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
 int main(int argc, char **argv) {
-	int wybor;		/* numer potencjału, wybrany przez użytkownika */
-	float wys;		/* współczynnik wysokości, przez który przemnożona będzie wartość potencjału */
-	const int N = 100;	/* rozmiar przestrzeni */
-	double v[N];		/* potencjał */
+	int wybor;		/* number of potential given by the user */
+	float wys;		/* height coefficient multiplying the potential value */
+	const int N = 100;	/* space size */
+	double v[N];		/* potential */
 	int i;
 	FILE *fp;
 
-	/* sprawdzenie, czy podano przynajmniej 1 argument wywołania programu */
+	/* checking if at least 1 command-line argument has been given */
 	if(argc>=2) {
-		wybor = atoi(argv[1]);		/* pierwszy argument wywołania programu to numer potencjału... */
+		wybor = atoi(argv[1]);		/* the first command-line argument should be the number of potential... */
 		if(wybor!=0 && argc>2)
-			wys = atof(argv[2]);	/* ...natomiast drugi to współczynnik wysokości */
+			wys = atof(argv[2]);	/* ...and the second should be the height coefficient */
 		else if(wybor!=0) {
-			printf("Podaj wysokosc potencjalu:\n");
+			printf("Input the potential height:\n");
 			printf("> ");
 			scanf("%f", &wys);
 		}
 	}
 	else {
-		printf("Wybierz rodzaj potencjalu:\n");
-		printf("0 -- brak\n");
-		printf("1 -- delta Diraca\n");
-		printf("2 -- stopien\n");
-		printf("3 -- schodki\n");
-		printf("4 -- krzywa Gaussa\n");
-		printf("5 -- studnia\n");
-		printf("6 -- rownia pochyla\n");
-		printf("7 -- oscylator harmoniczny\n");
+		printf("Choose the potential type:\n");
+		printf("0 -- null\n");
+		printf("1 -- Dirac delta\n");
+		printf("2 -- threshold\n");
+		printf("3 -- stairs\n");
+		printf("4 -- Gauss function\n");
+		printf("5 -- well\n");
+		printf("6 -- inclined plane\n");
+		printf("7 -- harmonic oscillator\n");
 		printf("> ");
 		scanf("%d", &wybor);
 		if(wybor!=0) {
 			printf("\n");
-			printf("Podaj wysokosc potencjalu:\n");
+			printf("Input the potential height:\n");
 			printf("> ");
 			scanf("%f", &wys);
 		}
@@ -46,12 +46,12 @@ int main(int argc, char **argv) {
 
 	switch(wybor) {
 		case 0:
-			/* potencjał zerowy */
+			/* null potential */
 			for(i=0; i<N; i++)
 				v[i] = 0;
 			break;
 		case 1:
-			/* potencjał delta Diraca */
+			/* Dirac delta potential */
 			for(i=0; i<N; i++)
 				if(i==50)
 					v[i] = wys;
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 					v[i] = 0;
 			break;
 		case 2:
-			/* potencjał stopień */
+			/* threshold potential */
 			for(i=0; i<N; i++)
 				if(i>=40 && i<=60)
 					v[i] = wys;
@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
 					v[i] = 0;
 			break;
 		case 3:
-			/* potencjał schodkowy */
+			/* stairs potential */
 			for(i=0; i<N; i++)
 				if(i>=30 && i<=40)
 					v[i] = 0.25*wys;
@@ -81,12 +81,12 @@ int main(int argc, char **argv) {
 					v[i] = 0;
 			break;
 		case 4:
-			/* potencjał gaussowski */
+			/* Gauss potential */
 			for(i=0; i<N; i++)
 				v[i] = wys*exp(-pow(i-50, 2)/(2*pow(5, 2)));
 			break;
 		case 5:
-			/* potencjał studni */
+			/* well potential */
 			for(i=0; i<N; i++)
 				if(i<10 || i>30)
 					v[i] = wys;
@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
 					v[i] = 0;
 			break;
 		case 6:
-			/* potencjał równi pochyłej */
+			/* inclined plane potential */
 			for(i=0; i<N; i++)
 				if(i>=30 && i<=80)
 					v[i] = wys/50*(i-30);
@@ -102,12 +102,12 @@ int main(int argc, char **argv) {
 					v[i] = 0;
 			break;
 		case 7:
-			/* potencjał oscylatora harmonicznego */
+			/* harmonic oscillator potential */
 			for(i=0; i<N; i++)
 				v[i] = wys*(0.0025*i*i-0.1*i+1);
 			break;
 		default:
-			printf("Sory, kalafiory\n");
+			printf("Sorry, kalafiorry\n");
 			break;
 	}
 
