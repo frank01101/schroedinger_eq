@@ -60,6 +60,9 @@ dkms.conf
 ### Mathematica ###
 *.nb
 
-### Data files ###
+### Misc ###
+# Data files (binary here)
 *.dat
+
+# Old readme
 /readme.txt
