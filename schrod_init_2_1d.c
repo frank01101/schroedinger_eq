@@ -1,19 +1,19 @@
-/* Generowanie stanu początkowego -- dwóch paczek gaussowskich (przypadek jednowymiarowy) */
-/* Autor: Franciszek Humieja
-   Wersja 1.0 (2017-VIII-03) */
+/* Generate initial state---two Gauss packets (1-dimensional case) */
+/* Author: Franciszek Humieja
+   Version 1.0 (2017-08-03) */
 #include <stdio.h>
 #include <complex.h>
 #include <math.h>
 
 int main(void) {
-	const int N	= 100;	/* rozmiar przestrzeni */
-	int x_s1	= 20;	/* położenie środka paczki 1 */
-	int x_s2	= 80;	/* położenie środka paczki 2 */
-	double s1	= 5;	/* szerokość paczki 1 */
-	double s2	= 5;	/* szerokość paczki 2 */
-	double k1	= -1;	/* wektor falowy 1 */
-	double k2	= 1;	/* wektor falowy 2 */
-	double complex psi[N];	/* funkcja falowa */
+	const int N	= 100;	/* space size */
+	int x_s1	= 20;	/* position of the packet 1 center */
+	int x_s2	= 80;	/* position of the packet 2 center */
+	double s1	= 5;	/* packet 1 width */
+	double s2	= 5;	/* packet 2 width */
+	double k1	= -1;	/* wave vector 1 */
+	double k2	= 1;	/* wave vector 2 */
+	double complex psi[N];	/* wave function */
 	int i;
 	FILE *fp;
 

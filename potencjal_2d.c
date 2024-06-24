@@ -1,80 +1,80 @@
-/* Generowanie wybranego potencjału (przypadek dwuwymiarowy) */
-/* Autor: Franciszek Humieja
-   Wersja 1.0 (2017-VIII-11) */
+/* Generate the selected potential for two-dimensional case */
+/* Author: Franciszek Humieja
+   Version 1.0 (2017-08-11) */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
 int main(int argc, char **argv) {
-	int wybor;			/* numer potencjału, wybrany przez użytkownika */
-	float wys;			/* współczynnik wysokości, przez który przemnożona będzie wartość potencjału */
+	int wybor;			/* number of potential provided by the user */
+	float wys;			/* height coefficient multiplying the potential value */
 	char szer[2] = {'n','\0'};
-	int lSzer = 0;			/* szerokość potencjału ma być równa szerokości przestrzeni (1) czy nie (0)? */
-	const int NX = 100;		/* rozmiar przestrzeni */
-	const int NY = 100;		/* rozmiar przestrzeni */
-	double v[NX*NY];		/* potencjał */
+	int lSzer = 0;			/* does the potential width have to be equal to the space width (1) or not (0)? */
+	const int NX = 100;		/* space size */
+	const int NY = 100;		/* space size */
+	double v[NX*NY];		/* potential */
 	int i,j;
 	FILE *fp;
 
-	/* sprawdzenie, czy podano przynajmniej 1 argument wywołania programu */
+	/* checking if at least 1 command-line argument has been given */
 	if(argc>=2) {
-		wybor = atoi(argv[1]);		/* pierwszy argument wywołania programu to numer potencjału... */
+		wybor = atoi(argv[1]);		/* the first command-line argument should be the number of potential... */
 		if(wybor!=0) {
 			if(argc>=3) {
-				wys = atof(argv[2]);	/* ...drugi to współczynnik wysokości... */
+				wys = atof(argv[2]);	/* ...the second should be the height coefficient... */
 				if(argc>=4) {
-					szer[0] = argv[3][0];	/* ...natomiast trzeci to wybór szerokości potencjału */
-					if(szer[0]=='t')
+					szer[0] = argv[3][0];	/* ...and the third is the choice of the potential width */
+					if(szer[0]=='y')
 						lSzer = 1;
 				}
 			}
 			else {
-				printf("Podaj wysokosc potencjalu:\n");
+				printf("Input the potential height:\n");
 				printf("> ");
 				scanf("%f", &wys);
-				printf("Czy szerokosc potencjalu ma byc rowna szerokosci przestrzeni? [t/n]:\n");
+				printf("Should the potential width be equal to the space width? [y/n]:\n");
 				printf("> ");
 				scanf("%1s", szer);
-				if(szer[0]=='t')
+				if(szer[0]=='y')
 					lSzer = 1;
 			}
 		}
 	}
 	else {
-		printf("Wybierz rodzaj potencjalu:\n");
-		printf("0 -- brak\n");
-		printf("1 -- delta Diraca\n");
-		printf("2 -- stopien\n");
-		printf("3 -- klin\n");
-		printf("4 -- schodki\n");
-		printf("5 -- krzywa Gaussa\n");
-		printf("6 -- studnia\n");
-		printf("7 -- rownia pochyla\n");
-		printf("8 -- oscylator harmoniczny\n");
-		printf("9 -- szczeliny\n");
+		printf("Choose the potential type:\n");
+		printf("0 -- null\n");
+		printf("1 -- Dirac delta\n");
+		printf("2 -- threshold\n");
+		printf("3 -- wedge\n");
+		printf("4 -- stairs\n");
+		printf("5 -- Gauss function\n");
+		printf("6 -- well\n");
+		printf("7 -- inclined plane\n");
+		printf("8 -- harmonic oscillator\n");
+		printf("9 -- slits\n");
 		printf("> ");
 		scanf("%d", &wybor);
 		if(wybor!=0) {
-			printf("Podaj wysokosc potencjalu:\n");
+			printf("Input the potential height:\n");
 			printf("> ");
 			scanf("%f", &wys);
-			printf("Czy szerokosc potencjalu ma byc rowna szerokosci przestrzeni? [t/n]:\n");
+			printf("Should the potential width be equal to the space width? [y/n]:\n");
 			printf("> ");
 			scanf("%1s", szer);
-			if(szer[0]=='t')
+			if(szer[0]=='y')
 				lSzer = 1;
 		}
 	}
 
-	/* wypełnienie potencjału zerami
-	   jest problem z wyciekiem pamięci (z powodu użycia scanf?) */
+	/* filling the potential with zeros
+	   because of the issue with memory leakage (due to the usage of scanf?) */
 	for(i=0; i<NX; i++)
 		for(j=0; j<NY; j++)
 			v[i*NY+j] = 0;
 
 	switch(wybor) {
 		case 1:
-			/* potencjał delta Diraca */
+			/* Dirac delta potential */
 			for(i=0; i<NX; i++)
 				for(j=0; j<NY; j++)
 					if(i==NX/2)
@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
 							v[i*NY+j] = wys;
 			break;
 		case 2:
-			/* potencjał stopień */
+			/* threshold potential */
 			for(i=0; i<NX; i++)
 				for(j=0; j<NY; j++)
 					if(i>=(int)(0.4*NX) && i<=(int)(0.6*NX))
@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
 							v[i*NY+j] = wys;
 			break;
 		case 3:
-			/* potencjał klinowy */
+			/* wedge potential */
 			for(i=0; i<NX; i++)
 				for(j=0; j<NY; j++)
 					if(i>=(int)(0.3*NX) && i<=(int)(0.7*NX))
@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
 							v[i*NY+j] = wys;
 			break;
 		case 4:
-			/* potencjał schodkowy */
+			/* stairs potential */
 			for(i=0; i<NX; i++)
 				for(j=0; j<NY; j++)
 					if(i>=0.3*NX && i<0.4*NX) {
@@ -133,7 +133,7 @@ int main(int argc, char **argv) {
 					}
 			break;
 		case 5:
-			/* potencjał gaussowski */
+			/* Gauss potential */
 			for(i=0; i<NX; i++)
 				for(j=0; j<NY; j++)
 					if(lSzer)
@@ -142,7 +142,7 @@ int main(int argc, char **argv) {
 						v[i*NY+j] = wys*exp((-pow(i-NX/2,2)-pow(j-NY/2,2))/(2*pow(NX/20,2)));
 			break;
 		case 6:
-			/* potencjał studni */
+			/* well potential */
 			for(i=0; i<NX; i++)
 				for(j=0; j<NY; j++)
 					if(i<0.1*NX || i>0.3*NX)
@@ -151,7 +151,7 @@ int main(int argc, char **argv) {
 						v[i*NY+j] = wys;
 			break;
 		case 7:
-			/* potencjał równi pochyłej */
+			/* inclined plane potential */
 			for(i=0; i<NX; i++)
 				for(j=0; j<NY; j++)
 					if(i>=0.3*NX && i<=0.8*NX)
@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
 							v[i*NY+j] = wys/(0.5*NX)*(i-0.3*NX);
 			break;
 		case 8:
-			/* potencjał oscylatora harmonicznego */
+			/* harmonic oscillator potential */
 			for(i=0; i<NX; i++)
 				for(j=0; j<NY; j++)
 					if(lSzer)
@@ -170,7 +170,7 @@ int main(int argc, char **argv) {
 						v[i*NY+j] = wys*(0.0025*(i*i+j*j)-0.1*i-0.2*j+5);
 			break;
 		case 9:
-			/* potencjał szczelinowy */
+			/* slit potential */
 			for(i=0; i<NX; i++)
 				for(j=0; j<NY; j++)
 					if(i==NX/2)

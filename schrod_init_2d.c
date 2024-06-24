@@ -1,44 +1,44 @@
-/* Generowanie stanu początkowego -- paczki gaussowskiej (przypadek dwuwymiarowy) */
-/* Autor: Franciszek Humieja
-   Wersja 1.1 (2017-VIII-18) */
+/* Generate the initial state---Gauss packet (2-dimensional case) */
+/* Author: Franciszek Humieja
+   Version 1.1 (2017-08-18) */
 #include <stdio.h>
 #include <stdlib.h>
 #include <complex.h>
 #include <math.h>
 
 int main(int argc, char **argv) {
-	int iloscPaczek	= 1;			/* ilość paczek; do wyboru przez użytkownika */
-	const int NX	= 100;			/* rozmiar przestrzeni */
-	const int NY	= 100;			/* rozmiar przestrzeni */
-	int x_s1	= (int)(0.2*NX);	/* położenie środka paczki 1 */
-	int y_s1	= (int)(0.5*NY);	/* położenie środka paczki 1 */
-	int x_s2	= (int)(0.8*NX);	/* położenie środka paczki 2 */
-	int y_s2	= (int)(0.5*NY);	/* położenie środka paczki 2 */
-	int x_s3	= (int)(0.6*NX);	/* położenie środka paczki 3 */
-	int y_s3	= (int)(0.8*NY);	/* położenie środka paczki 3 */
-	int x_s4	= (int)(0.6*NX);	/* położenie środka paczki 4 */
-	int y_s4	= (int)(0.2*NY);	/* położenie środka paczki 4 */
-	double s1	= (double)NX/20;	/* szerokość paczki 1 */
-	double s2	= (double)NX/20;	/* szerokość paczki 2 */
-	double s3	= (double)NX/20;	/* szerokość paczki 3 */
-	double s4	= (double)NX/20;	/* szerokość paczki 4 */
-	double kx1	= 1;			/* wektor falowy 1 */
-	double ky1	= 0;			/* wektor falowy 1 */
-	double kx2	= -1;			/* wektor falowy 2 */
-	double ky2	= 0;			/* wektor falowy 2 */
-	double kx3	= -0.5;			/* wektor falowy 3 */
-	double ky3	= -sqrt(3)/2;		/* wektor falowy 3 */
-	double kx4	= -0.5;			/* wektor falowy 4 */
-	double ky4	= sqrt(3)/2;		/* wektor falowy 4 */
-	double complex psi[NX*NY];		/* funkcja falowa */
+	int iloscPaczek	= 1;			/* number of packets; to be chosen by the user */
+	const int NX	= 100;			/* space size */
+	const int NY	= 100;			/* space size */
+	int x_s1	= (int)(0.2*NX);	/* position of the packet 1 center */
+	int y_s1	= (int)(0.5*NY);	/* position of the packet 1 center */
+	int x_s2	= (int)(0.8*NX);	/* position of the packet 2 center */
+	int y_s2	= (int)(0.5*NY);	/* position of the packet 2 center */
+	int x_s3	= (int)(0.6*NX);	/* position of the packet 3 center */
+	int y_s3	= (int)(0.8*NY);	/* position of the packet 3 center */
+	int x_s4	= (int)(0.6*NX);	/* position of the packet 4 center */
+	int y_s4	= (int)(0.2*NY);	/* position of the packet 4 center */
+	double s1	= (double)NX/20;	/* packet 1 width */
+	double s2	= (double)NX/20;	/* packet 2 width */
+	double s3	= (double)NX/20;	/* packet 3 width */
+	double s4	= (double)NX/20;	/* packet 4 width */
+	double kx1	= 1;			/* wave vector 1 */
+	double ky1	= 0;			/* wave vector 1 */
+	double kx2	= -1;			/* wave vector 2 */
+	double ky2	= 0;			/* wave vector 2 */
+	double kx3	= -0.5;			/* wave vector 3 */
+	double ky3	= -sqrt(3)/2;		/* wave vector 3 */
+	double kx4	= -0.5;			/* wave vector 4 */
+	double ky4	= sqrt(3)/2;		/* wave vector 4 */
+	double complex psi[NX*NY];		/* wave function */
 	int i,j;
 	FILE *fp;
 
-	/* wczytanie ilości paczek, podanej jako pierwszy argument wywołania programu */
+	/* read the packet number, given as the first command-line argument */
 	if(argc>=2)
 		iloscPaczek = atoi(argv[1]);
 
-	/* tworzenie stanu początkowego */
+	/* creating the initial state */
 	for(i=0; i<NX; i++) {
 		for(j=0; j<NY; j++) {
 			if(i>0 && i<NX-1 && j>0 && j<NY-1) {
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 		printf("\n");
 	}
 
-	/* zapis do plików, oddzielnie dla każdej metody całkowania */
+	/* writing to files---separately for each integration method */
 	fp = fopen("schrod_a_2d.dat", "w");
 	fwrite(psi, sizeof(double complex), NX*NY, fp);
 	fclose(fp);

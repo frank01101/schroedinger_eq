@@ -57,8 +57,9 @@ dkms.conf
 
 # End of https://www.toptal.com/developers/gitignore/api/c
 
-# Mathematica
+### Mathematica ###
 *.nb
 
-# Data files (binary)
+### Data files ###
 *.dat
+/readme.txt

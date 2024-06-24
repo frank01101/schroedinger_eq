@@ -1,16 +1,16 @@
-/* Generowanie stanu początkowego -- stanu gaussowskiego unormowanego (przypadek jednowymiarowy) */
-/* Autor: Franciszek Humieja
-   Wersja 1.1 (2017-VIII-02) */
+/* Generate the initial state---the Gaussian normalized state (1-dimensional case) */
+/* Author: Franciszek Humieja
+   Version 1.1 (2017-08-02) */
 #include <stdio.h>
 #include <complex.h>
 #include <math.h>
 
 int main(void) {
-	const int N	= 100;	/* rozmiar przestrzeni */
-	int x_s		= 20;	/* położenie środka paczki */
-	double s	= 5;	/* szerokość paczki */
-	double k	= -1;	/* wektor falowy */
-	double complex psi[N];	/* funkcja falowa */
+	const int N	= 100;	/* space size */
+	int x_s		= 20;	/* position of the packet center */
+	double s	= 5;	/* packet width */
+	double k	= -1;	/* wave vector */
+	double complex psi[N];	/* wave function */
 	int i;
 	FILE *fp;
 

@@ -6,7 +6,7 @@
 #include <math.h>
 
 int main(int argc, char **argv) {
-	int wybor;		/* number of potential given by the user */
+	int wybor;		/* number of potential provided by the user */
 	float wys;		/* height coefficient multiplying the potential value */
 	const int N = 100;	/* space size */
 	double v[N];		/* potential */
