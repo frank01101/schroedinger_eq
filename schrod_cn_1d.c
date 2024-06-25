@@ -1,38 +1,41 @@
-/* Całkowanie równania Schrodingera (przypadek jednowymiarowy; model 6 --- metoda niejawna drugiego rzędu (Crancka-Nicholsona) z rozwiązaniem układu równań metodą iteracyjną Jacobiego) */
-/* Obserwacja: metoda jest niestabilna dla dt >= 0.03 i dx = 1 */
-/* Autor: Franciszek Humieja
-   Wersja 1.0 (2017-VIII-02) */
+/* Integrate the Schrodinger equation (1D case; model 6 -- second-order implicit
+ * method (Cranck-Nicholson) with solution of the system of equations using
+ * the Jacobi iterative method) */
+/* Observation: the method is unstable for dt >= 0.03 and dx = 1 */
+/* Author: Franciszek Humieja
+ Version 1.0 (2017-08-02) */
 #include <stdio.h>
 #include <complex.h>
 #include <math.h>
 
 int main(void) {
-	const int N = 100;			/* rozmiar przestrzeni */
-	char v_nazwa[] = "potencjal_1d.dat";	/* nazwa pliku z wartościami potencjału */
-	char psi_nazwa[] = "schrod_cn_1d.dat";	/* nazwa pliku z wartościami funkcji falowej */
-	double v[N];				/* potencjał */
-	double complex psi[N], psi1[N];		/* funkcja falowa */
-	double complex psi1_temp, psi1l;
-	FILE *fp;
-	int k, i;
-	double dt = 0.01;			/* krok czasowy; */
-	double dx = 1;				/* krok przestrzenny */
-	int K = 20;				/* ilość iteracji w metodzie Jacobiego */
+	const int N = 100;			/* space size */
+	char v_nazwa[] = "potencjal_1d.dat";	/* filename with values of potential */
+	char psi_nazwa[] = "schrod_cn_1d.dat";	/* filename with values of wave function */
+	double v[N];				/* potential */
+	double complex psi[N], psi1[N];		/* wave function */
+	double complex psi1_temp, psi1l;                                                    
+	FILE *fp;                                                                           
+	int k, i;                               
+	double dt = 0.01;			/* time step */
+	double dx = 1;				/* space step */
+	int K = 20;				/* number of iterations in the Jacobi method */
 	double complex a, b, d, w;
 	int el, e;
 
-	/* wczytanie odpowiedniego potencjału */
+	/* read the potential */
 	fp = fopen(v_nazwa, "r");
 	fread(v, sizeof(double), N, fp);
 	fclose(fp);
 
-	/* wczytanie funkcji falowej z poprzedniego kroku czasowego */
+	/* read the wave function from the previous time step */
 	fp = fopen(psi_nazwa, "r");
 	fread(psi, sizeof(double complex), N, fp);
 	fclose(fp);
 
-	/* znalezienie rozwiązania układu równań metodą iteracyjną Jacobiego;
-	   macierz A jest trójprzekątniowa, cała metoda redukuje się do prostego wzoru z jedną pętlą po współrzędnej przestrzennej x */
+	/* finding a solution to the system of equations using the Jacobi
+	 * iterative method; matrix A is three-diagonal, the entire method
+	 * reduces to a simple formula with one loop along the spatial coordinate x */
 	for(k=1; k<=K; k++) {
 		psi1l = psi1[0];
 		for(i=1; i<N-1; i++) {
@@ -50,11 +53,11 @@ int main(void) {
 		}
 	}
 
-	/* wypisanie wartości funkcji falowej na wyjście */
+	/* print the value of wave function to the standard output */
 	for(i=0; i<N; i++)
 		printf("%d %g %g %g %g\n", i, creal(psi1[i]), cimag(psi1[i]), pow(cabs(psi1[i]),2), v[i]);
 
-	/* zapis funkcji falowej z obecnego kroku czasowego */
+	/* write the wave function from the current time step to the file */
 	fp = fopen(psi_nazwa, "w");
 	fwrite(psi1, sizeof(double complex), N, fp);
 	fclose(fp);
