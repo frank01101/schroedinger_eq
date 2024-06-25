@@ -1,7 +1,7 @@
 # Numerical simulation of the Schrödinger equation
 This repository shows various methods of numerical integration of the Schrödinger equation in the positional representation
 
-![image](https://github.com/frank01101/schroedinger_eq/assets/144745744/9f850d7c-fc40-43d8-88f3-1df1f2db075d)
+![image](https://github.com/frank01101/schroedinger_eq/assets/144745744/222397c7-6ec5-422a-b257-e9ee9afd18f9)
 
 in either one or two dimensions with various potentials. The whole system is an infinite well, so the boundary conditions are zeros.
 
