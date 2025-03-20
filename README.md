@@ -19,7 +19,7 @@ The code files for the one-dimensional case are `schrod_*_1d.c`. They utilize va
 - `schrod_2s_5p_1d.c`: **model 3a** – two-step explicit method with five-point formula for Laplacian. This method is ***stable*** but has higher numerical diffusion than the previous method with the three-point formula.
 - `schrod_rk4_1d.c`: **model 4** – fourth-order Runge-Kutta method. This method is crazy because of having very long expressions for coefficients, which I derived in Mathematica (the notebook is printed to `wsp_rk4.pdf` and the final formulas are in `wzory.txt` and `wzory_kopia.txt`). This method is ***stable*** for a reasonable time step.
 - `schrod_lw_1d.c`: **model 5** – Lax-Wendroff method. This method has very high dispersion in this case and the solution behaves differently than the others (because it was a bit “over-engineered”) – ***unstable***.
-- `schrod_cn_1d.c`: **model 6** – second-order implicit method (Crack-Nicholson) with solution of the system of equations using the Jacobi iterative method. This method is ***stable*** for the reasonable time step (e.g., when dx==1, dt<0.03).
+- `schrod_cn_1d.c`: **model 6** – second-order implicit method (Cranck-Nicholson) with solution of the system of equations using the Jacobi iterative method. This method is ***stable*** for the reasonable time step (e.g., when dx==1, dt<0.03).
 
 ### Two-dimensional simulations
 The code files for the two-dimensional simulations are `schrod_*_2d.c`. They are the two-dimensional extensions of the successful one-dimensional models. They include:
